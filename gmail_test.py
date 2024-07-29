@@ -26,12 +26,15 @@ class Tempgmail:
             sleep(2)
 
     def html_text(self, msgid):
-        return self.client.get(f"{self.link}/content/{msgid}/html", headers={'User-Agent': 'Mozilla/5.0'})
+        return self.client.get(f"{self.link}/content/{msgid}/html", headers={'User-Agent': self.ua})
 
 
 tempgmail = Tempgmail()
 mail = tempgmail.generate()
+# 当前使用的Gmail
 print(mail)
 tempgmail.mailbox(mail)
+# 发送人 内部消息ID
 from_mail, msgid = tempgmail.wait_mail()
+# 获取返回邮件的HTML内容
 print(tempgmail.html_text(msgid))
